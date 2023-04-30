@@ -1,0 +1,10 @@
+dubbo:
+  application:
+    name: MessageBoard-Api
+  registry:
+    address: nacos://localhost:8848
+  consumer:
+    check: false
+
+server:
+  port: 8080
