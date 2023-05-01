@@ -1,7 +1,10 @@
 package org.demo.entity.request;
 
+import lombok.Builder;
+
 import java.io.Serializable;
 
+@Builder
 public class ListMessageRequest implements Serializable {
     private Integer page;
 

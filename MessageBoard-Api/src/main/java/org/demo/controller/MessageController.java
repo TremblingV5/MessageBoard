@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.demo.common.CommonResult;
-import org.demo.entity.request.AddMessageRequest;
 import org.demo.entity.vo.MessageListVO;
 import org.demo.entity.vo.MessageVO;
 import org.demo.protocol.MessageServiceImpl;
@@ -26,7 +25,11 @@ public class MessageController {
         CommonResult result = new CommonResult().init();
 
         try {
-            org.demo.entity.response.ListMessageResponse resp = messageService.ListMessage(new org.demo.entity.request.ListMessageRequest(vo.getPage_num()));
+            org.demo.entity.response.ListMessageResponse resp = messageService.ListMessage(
+                    org.demo.entity.request.ListMessageRequest.builder()
+                        .page(vo.getPage_num())
+                        .build()
+            );
             result.success("message_list", resp.getMessageList());
         } catch (Exception e) {
             result.fail(1, e.toString());
@@ -41,9 +44,12 @@ public class MessageController {
         CommonResult result = new CommonResult().init();
 
         try {
-            org.demo.entity.response.AddMessageResponse resp = messageService.AddMessage(new org.demo.entity.request.AddMessageRequest(
-                    vo.getContent(), vo.getUser()
-            ));
+            org.demo.entity.response.AddMessageResponse resp = messageService.AddMessage(
+                    org.demo.entity.request.AddMessageRequest.builder()
+                        .content(vo.getContent())
+                        .user(vo.getUser())
+                        .build()
+            );
             result.success("message", resp.getMessage());
         } catch (Exception e) {
             result.fail(1, e.toString());

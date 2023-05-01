@@ -32,15 +32,20 @@ public class MessageServiceImpl implements org.demo.protocol.MessageServiceImpl 
             );
         }
 
-        return new ListMessageResponse(result);
+        return ListMessageResponse.builder().messageList(result).build();
     }
 
     @Override
     public AddMessageResponse AddMessage(AddMessageRequest request) {
         org.demo.entity.db.Message newMessage = messageService.addMessage(request.getContent(), request.getUser());
 
-        return new AddMessageResponse(new Message(
-                newMessage.getId(), newMessage.getContent(), newMessage.getUser(), "刚刚"
-        ));
+        return AddMessageResponse.builder().message(
+                Message.builder()
+                        .id(newMessage.getId())
+                        .content(newMessage.getContent())
+                        .user(newMessage.getUser())
+                        .time("刚刚")
+                        .build()
+        ).build();
     }
 }

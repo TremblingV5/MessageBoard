@@ -1,6 +1,5 @@
 package org.demo.protocol;
 
-import org.demo.entity.pojo.Message;
 import org.demo.entity.request.AddMessageRequest;
 import org.demo.entity.request.ListMessageRequest;
 import org.demo.entity.response.AddMessageResponse;

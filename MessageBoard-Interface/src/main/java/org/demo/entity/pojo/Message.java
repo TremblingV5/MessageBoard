@@ -1,7 +1,10 @@
 package org.demo.entity.pojo;
 
+import lombok.Builder;
+
 import java.io.Serializable;
 
+@Builder
 public class Message implements Serializable {
     private Long id;
     private String content;
