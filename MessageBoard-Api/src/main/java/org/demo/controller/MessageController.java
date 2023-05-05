@@ -5,9 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.demo.common.CommonResult;
-import org.demo.entity.vo.MessageListVO;
-import org.demo.entity.vo.MessageVO;
-import org.demo.protocol.MessageServiceImpl;
+import org.demo.interfaces.entity.vo.MessageListVO;
+import org.demo.interfaces.entity.vo.MessageVO;
+import org.demo.interfaces.protocol.MessageServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -25,8 +25,8 @@ public class MessageController {
         CommonResult result = new CommonResult().init();
 
         try {
-            org.demo.entity.response.ListMessageResponse resp = messageService.ListMessage(
-                    org.demo.entity.request.ListMessageRequest.builder()
+            org.demo.interfaces.entity.response.ListMessageResponse resp = messageService.ListMessage(
+                    org.demo.interfaces.entity.request.ListMessageRequest.builder()
                         .page(vo.getPage_num())
                         .build()
             );
@@ -44,8 +44,8 @@ public class MessageController {
         CommonResult result = new CommonResult().init();
 
         try {
-            org.demo.entity.response.AddMessageResponse resp = messageService.AddMessage(
-                    org.demo.entity.request.AddMessageRequest.builder()
+            org.demo.interfaces.entity.response.AddMessageResponse resp = messageService.AddMessage(
+                    org.demo.interfaces.entity.request.AddMessageRequest.builder()
                         .content(vo.getContent())
                         .user(vo.getUser())
                         .build()
