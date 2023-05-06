@@ -1,12 +1,12 @@
 package org.demo.message.domain.model;
 
-import javax.persistence.Entity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.demo.message.domain.model.base.BaseEntity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.Date;

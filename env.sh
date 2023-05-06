@@ -1,0 +1,1 @@
+./env_solution/start.sh mysql nacos
