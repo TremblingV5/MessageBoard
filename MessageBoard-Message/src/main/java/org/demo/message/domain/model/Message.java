@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 @Builder
 @Accessors(chain = true)
-@Entity // 必须是javax的Entity
+@Entity // Must use javax.persistence.Entity
 @Table(name = "message")
 @org.hibernate.annotations.Table(appliesTo = "message")
 public class Message extends BaseEntity {

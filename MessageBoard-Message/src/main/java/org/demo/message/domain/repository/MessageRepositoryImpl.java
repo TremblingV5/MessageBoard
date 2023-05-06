@@ -1,16 +1,15 @@
-package org.demo.message.infrastructure;
+package org.demo.message.domain.repository;
 
 import cn.hutool.core.util.PageUtil;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.demo.message.domain.model.Message;
-import org.demo.message.domain.repository.MessageRepository;
 import org.demo.message.infrastructure.jpa.JpaMessageRepository;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Slf4j
 @Repository
 public class MessageRepositoryImpl implements MessageRepository {
     private final JpaMessageRepository jpaMessageRepository;

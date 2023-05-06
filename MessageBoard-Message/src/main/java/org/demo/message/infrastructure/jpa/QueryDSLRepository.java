@@ -1,4 +1,4 @@
-package org.demo.message.domain.repository;
+package org.demo.message.infrastructure.jpa;
 
 import org.demo.message.domain.model.Message;
 import org.springframework.data.jpa.repository.JpaRepository;

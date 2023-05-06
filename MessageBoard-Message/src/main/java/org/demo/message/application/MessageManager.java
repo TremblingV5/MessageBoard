@@ -6,8 +6,8 @@ import org.demo.interfaces.entity.request.ListMessageRequest;
 import org.demo.interfaces.entity.response.AddMessageResponse;
 import org.demo.interfaces.entity.response.ListMessageResponse;
 import org.demo.message.domain.MessageDomainService;
+import org.demo.message.domain.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +20,10 @@ public class MessageManager implements org.demo.interfaces.protocol.MessageServi
 
     @Override
     public ListMessageResponse ListMessage(ListMessageRequest request) {
-        List<org.demo.message.domain.model.Message> messageList = messageDomainService.getMessageList(request.getPage());
+        List<Message> messageList = messageDomainService.getMessageList(request.getPage());
 
         List<org.demo.interfaces.entity.pojo.Message> result = new ArrayList<>();
-        for (org.demo.message.domain.model.Message message: messageList) {
+        for (Message message: messageList) {
             result.add(
                     message.toDto()
             );
@@ -34,8 +34,8 @@ public class MessageManager implements org.demo.interfaces.protocol.MessageServi
 
     @Override
     public AddMessageResponse AddMessage(AddMessageRequest request) {
-        org.demo.message.domain.model.Message newMessage = messageDomainService.addMessage(
-                org.demo.message.domain.model.Message.builder()
+        Message newMessage = messageDomainService.addMessage(
+                Message.builder()
                         .content(request.getContent())
                         .user(request.getUser())
                         .build()
