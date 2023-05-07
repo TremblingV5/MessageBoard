@@ -18,7 +18,8 @@ public class SnowflakeUtil implements IdentifierGenerator {
 
     @PostConstruct
     public void init() {
-        WORKER_ID = NetUtil.ipv4ToLong(NetUtil.getLocalhostStr());
+        WORKER_ID = NetUtil.ipv4ToLong(NetUtil.getLocalhostStr()) >> 16 & 31;
+//        DATACENTER_ID = 1L;
     }
 
     public synchronized long snowflakeId() {

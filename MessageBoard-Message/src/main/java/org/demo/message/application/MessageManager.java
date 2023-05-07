@@ -1,47 +1,42 @@
 package org.demo.message.application;
 
-import org.apache.dubbo.config.annotation.DubboService;
-import org.demo.interfaces.entity.request.AddMessageRequest;
-import org.demo.interfaces.entity.request.ListMessageRequest;
 import org.demo.interfaces.entity.response.AddMessageResponse;
 import org.demo.interfaces.entity.response.ListMessageResponse;
 import org.demo.message.domain.MessageDomainService;
 import org.demo.message.domain.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@DubboService(interfaceClass = org.demo.interfaces.protocol.MessageServiceImpl.class)
-public class MessageManager implements org.demo.interfaces.protocol.MessageServiceImpl {
+@Component
+public class MessageManager {
 
     @Autowired
     private MessageDomainService messageDomainService;
 
-    @Override
-    public ListMessageResponse ListMessage(ListMessageRequest request) {
-        List<Message> messageList = messageDomainService.getMessageList(request.getPage());
+    public ListMessageResponse ListMessage(int pageNum) {
+        List<Message> MessageList = messageDomainService.getMessageList(pageNum);
 
         List<org.demo.interfaces.entity.pojo.Message> result = new ArrayList<>();
-        for (Message message: messageList) {
+        for (Message Message : MessageList) {
             result.add(
-                    message.toDto()
+                    Message.toDto()
             );
         }
 
         return ListMessageResponse.builder().messageList(result).build();
     }
 
-    @Override
-    public AddMessageResponse AddMessage(AddMessageRequest request) {
+    public AddMessageResponse AddMessage(String content, String user) {
         Message newMessage = messageDomainService.addMessage(
                 Message.builder()
-                        .content(request.getContent())
-                        .user(request.getUser())
+                        .content(content)
+                        .user(user)
                         .build()
         );
-
-        return AddMessageResponse.builder().message(
+               return AddMessageResponse.builder().message(
                 org.demo.interfaces.entity.pojo.Message.builder()
                         .id(newMessage.getId())
                         .content(newMessage.getContent())

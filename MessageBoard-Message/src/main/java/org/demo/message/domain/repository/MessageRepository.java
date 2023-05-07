@@ -5,6 +5,6 @@ import org.demo.message.domain.model.Message;
 import java.util.List;
 
 public interface MessageRepository {
-    Message save(Message message);
+    Message save(Message Message);
     List<Message> findMessageList(int pageNum);
 }
