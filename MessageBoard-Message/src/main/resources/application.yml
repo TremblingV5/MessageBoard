@@ -15,9 +15,20 @@ spring:
     username: USER
     password: PWD
     host: 127.0.0.1
-    db: MessageBoard
+    db: DBName
     url: jdbc:p6spy:mysql://${spring.datasource.host}:3306/${spring.datasource.db}?serverTimezone=GMT%2b8
   jpa:
     show-sql: false
     hibernate:
       ddl-auto: update
+  redis:
+    host: localhost
+    port: 6379
+    password: root
+    database: 0
+    jedis:
+      pool:
+        max-active: 0
+        max-wait: 1ms
+        max-idle: 4
+        min-idle: 0
