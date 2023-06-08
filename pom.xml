@@ -23,6 +23,8 @@
         <dubbo.version>3.2.0</dubbo.version>
         <springboot.version>2.7.8</springboot.version>
         <spring.data.version>2022.0.3</spring.data.version>
+        <spring.kafka.version>2.9.0</spring.kafka.version>
+        <kafka.clients.version>3.2.3</kafka.clients.version>
         <hutool.version>5.8.9</hutool.version>
     </properties>
 
@@ -131,6 +133,18 @@
                 <type>pom</type>
             </dependency>
             <!--      Tools      -->
+
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring.kafka.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.clients.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

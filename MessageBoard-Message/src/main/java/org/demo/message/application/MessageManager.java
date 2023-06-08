@@ -6,6 +6,7 @@ import org.demo.interfaces.entity.response.ListMessageResponse;
 import org.demo.message.domain.MessageDomainService;
 import org.demo.message.domain.model.Message;
 import org.demo.message.infrastructure.cache.RedisUtil;
+import org.demo.message.infrastructure.mq.KafkaSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,9 @@ public class MessageManager {
 
     @Autowired
     private RedisUtil<org.demo.interfaces.entity.pojo.Message> redisUtil;
+
+    @Autowired
+    private KafkaSender<org.demo.interfaces.entity.pojo.Message> kafkaSender;
 
     public ListMessageResponse ListMessage(int pageNum) {
         List<org.demo.interfaces.entity.pojo.Message> result = redisUtil.getList("cache");
@@ -47,17 +51,16 @@ public class MessageManager {
         redisUtil.del("cache");
         log.info("del cache before add");
 
-        Message newMessage = messageDomainService.addMessage(
-                Message.builder()
+        kafkaSender.send("message-board", org.demo.interfaces.entity.pojo.Message.builder()
+                .content(content)
+                .user(user)
+                .build()
+        );
+
+        return AddMessageResponse.builder().message(
+                org.demo.interfaces.entity.pojo.Message.builder()
                         .content(content)
                         .user(user)
-                        .build()
-        );
-               return AddMessageResponse.builder().message(
-                org.demo.interfaces.entity.pojo.Message.builder()
-                        .id(newMessage.getId())
-                        .content(newMessage.getContent())
-                        .user(newMessage.getUser())
                         .time("刚刚")
                         .build()
         ).build();

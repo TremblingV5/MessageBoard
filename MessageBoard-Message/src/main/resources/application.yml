@@ -32,3 +32,13 @@ spring:
         max-wait: 1ms
         max-idle: 4
         min-idle: 0
+  kafka:
+    bootstrap:
+      servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: message-application
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
