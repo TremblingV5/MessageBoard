@@ -5,6 +5,7 @@ import org.demo.interfaces.entity.response.AddMessageResponse;
 import org.demo.interfaces.entity.response.ListMessageResponse;
 import org.demo.message.domain.MessageDomainService;
 import org.demo.message.domain.model.Message;
+import org.demo.message.infrastructure.cache.LocalCacheUtil;
 import org.demo.message.infrastructure.cache.RedisUtil;
 import org.demo.message.infrastructure.mq.KafkaSender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,20 @@ public class MessageManager {
     @Autowired
     private KafkaSender<org.demo.interfaces.entity.pojo.Message> kafkaSender;
 
+    @Autowired
+    private LocalCacheUtil<Integer> localCache;
+
     public ListMessageResponse ListMessage(int pageNum) {
         List<org.demo.interfaces.entity.pojo.Message> result = redisUtil.getList("cache");
+
+        Integer num = localCache.get("pv");
+        if (num == null) {
+            num = 0;
+        }
+
+        localCache.put("pv", num + 1);
+
+        log.info("PV: {}, now add 1: {}", num, num + 1);
 
         if (result == null || result.size() <= 0) {
             log.info("list message missed cache");

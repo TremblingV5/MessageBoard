@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.demo.message.domain.model.Message;
 import org.demo.message.domain.model.QMessage;
+import org.demo.message.infrastructure.cache.LocalCacheUtil;
 import org.demo.message.infrastructure.jpa.JpaMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;

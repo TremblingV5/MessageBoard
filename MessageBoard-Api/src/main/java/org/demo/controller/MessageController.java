@@ -30,7 +30,7 @@ public class MessageController {
                         .page(vo.getPage_num())
                         .build()
             );
-            result.success("message_list", resp.getMessageList());
+            result.success("message_list", resp.getMessageList()).success("test", "get");
         } catch (Exception e) {
             result.fail(1, e.toString());
         }

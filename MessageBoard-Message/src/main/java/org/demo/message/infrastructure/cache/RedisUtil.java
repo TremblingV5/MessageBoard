@@ -2,8 +2,6 @@ package org.demo.message.infrastructure.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisUtil<T> {
-    @Autowired
     private RedisTemplate<String, T> redisTemplate;
 
+    @Autowired
     public RedisUtil(RedisTemplate<String, T> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        this.setSerializer();
     }
 
     public void set(final String key, T value) {
@@ -46,10 +43,5 @@ public class RedisUtil<T> {
 
     public void del(final String key) {
         redisTemplate.delete(key);
-    }
-
-    public void setSerializer() {
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(redisTemplate.getDefaultSerializer());
     }
 }

@@ -12,11 +12,12 @@ spring:
   datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    username: USER
-    password: PWD
+    username: root
+    password: root
     host: 127.0.0.1
-    db: DBName
-    url: jdbc:p6spy:mysql://${spring.datasource.host}:3306/${spring.datasource.db}?serverTimezone=GMT%2b8
+    port: 3307
+    db: message-board
+    url: jdbc:p6spy:mysql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.db}?serverTimezone=GMT%2b8
   jpa:
     show-sql: false
     hibernate:
